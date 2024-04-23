@@ -1,0 +1,76 @@
+<mat-toolbar color="primary">
+    <mat-toolbar-row fxLayout="row">
+        <span class="title-center">{{dialogData.action}} utilisateur</span>
+    </mat-toolbar-row>
+</mat-toolbar>
+
+<mat-dialog-content>
+    <div *ngIf="dialogData.action === 'Nouvel' || dialogData.action === 'Editer'"> 
+    <form [formGroup]="usersForm">
+        <div fxFlex fxLayout="column">
+            <div fxLayout="row wrap">
+                <mat-form-field appearance="fill" fxFlex color="primary">
+                    <mat-label>Nom</mat-label>
+                    <input matInput formControlName="name" required>
+                    <mat-error *ngIf="usersForm.controls.name.touched && usersForm.controls.name.invalid">
+                        <span *ngIf="usersForm.controls.name.errors.required">Ce champ est obligatoire</span>
+                        <span *ngIf="usersForm.controls.name.errors.pattern">Ce champ est invalide</span>
+                    </mat-error>
+                </mat-form-field>
+            </div>
+
+            <div fxLayout="row wrap">
+                <mat-form-field appearance="fill" fxFlex color="primary">
+                    <mat-label>Email</mat-label>
+                    <input matInput formControlName="email" required>
+                    <mat-error *ngIf="usersForm.controls.email.touched && usersForm.controls.email.invalid">
+                        <span *ngIf="usersForm.controls.email.errors.required">Ce champ est obligatoire</span>
+                        <span *ngIf="usersForm.controls.email.errors.pattern">Ce champ est invalide</span>
+                    </mat-error>
+                </mat-form-field>
+            </div>
+
+            <div fxLayout="row wrap">
+                <mat-form-field appearance="fill" fxFlex color="primary">
+                    <mat-label>Role</mat-label>
+                    <mat-select formControlName="role">
+                        <mat-option value="admin">admin</mat-option>
+                        <mat-option value="client">client</mat-option>
+                    </mat-select>
+                    <mat-error *ngIf="usersForm.controls.role.touched && usersForm.controls.role.invalid">
+                        <span *ngIf="usersForm.controls.role.errors.required">Ce champ est obligatoire</span>
+                    </mat-error>
+                </mat-form-field>
+            </div>
+
+            <div *ngIf="dialogData.action === 'Nouvel'">
+            <div fxLayout="row wrap">
+                <mat-form-field appearance="fill" fxFlex color="primary">
+                    <mat-label>Mot de passe</mat-label>
+                    <input matInput formControlName="password" type="password" required="">
+                    <mat-error *ngIf="usersForm.controls.password.touched && usersForm.controls.password.invalid">
+                        <span *ngIf="usersForm.controls.password.errors.required">Ce champ est obligatoire</span>
+                        <span *ngIf="usersForm.controls.password.errors.pattern">Ce champ est invalide</span>
+                    </mat-error>
+                </mat-form-field>
+            </div>
+            </div>
+        </div>
+    </form>
+    </div>
+    <div *ngIf="dialogData.action === 'Supprimer'">
+        <h2>Etes-vous sûr de vouloir supprimer cet utilisateur ?</h2>
+    </div>
+</mat-dialog-content>
+
+<mat-dialog-actions align="center">
+    <div *ngIf="dialogData.action === 'Nouvel' || dialogData.action === 'Editer'">
+        <button mat-raised-button color="primary" type="submit" (click)="handleSubmit()"
+        [disabled]="!(usersForm.valid && usersForm.dirty)">{{action}}</button>
+        <button mat-raised-button color="primary" mat-dialog-close="">Fermer</button>
+    </div>
+    <div *ngIf="dialogData.action === 'Supprimer'">
+        <button mat-raised-button color="primary" type="submit" (click)="handleSubmit()">{{action}}</button>
+        <button mat-raised-button color="primary" mat-dialog-close="">Fermer</button>
+    </div>
+</mat-dialog-actions>

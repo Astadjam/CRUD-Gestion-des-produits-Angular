@@ -1,0 +1,61 @@
+<mat-toolbar class="mat-elevation-z8" color="primary">
+    <button mat-icon-button [routerLink]="['']" matTooltip="Accueil">
+        <mat-icon>home</mat-icon>
+    </button>
+    <span *ngIf="isLoggedIn">Espace Client</span>
+    <span class="spacer"></span>
+
+    <h2 *ngIf="isLoggedIn">{{userName}}</h2>
+
+    <button mat-icon-button (click)="viewPanier()" matTooltip="Mon panier" *ngIf="isLoggedIn">
+        <mat-icon>shopping_cart</mat-icon>
+    </button>
+    <span *ngIf="isLoggedIn">
+        <span>
+          {{panier}}
+        </span>
+        <span *ngIf="panier > 1">
+          articles
+        </span>
+        <span *ngIf="panier < 2">
+          article
+        </span>
+      </span>
+
+    <button mat-icon-button matTooltip="Créer un compte" [routerLink]="['/signup']" *ngIf="!isLoggedIn">
+        <mat-icon>account_circle</mat-icon>
+    </button>
+
+    <button mat-icon-button matTooltip="Se connecter" [routerLink]="['/login']" *ngIf="!isLoggedIn">
+        <mat-icon>login</mat-icon>
+    </button>
+
+    <button mat-icon-button matTooltip="Se déconnecter" (click)="logout()" *ngIf="isLoggedIn">
+        <mat-icon>exit_to_app</mat-icon>
+    </button>
+</mat-toolbar>
+
+<div class="content-wrapper">
+    <br>
+    <div class="search-wrapper">
+        <mat-form-field appearance="fill" color="primary" style="width: 50%">
+            <mat-label>Rechercher une catégorie</mat-label>
+            <input matInput [(ngModel)]="searchText" (input)="filteredItems()">
+        </mat-form-field>
+    </div>
+
+    <div class="card-container">
+        <mat-card *ngFor="let card of filteredItems()" class="card">
+            <mat-card-header>
+                <mat-card-title>{{card.name}}</mat-card-title>
+            </mat-card-header>
+            <img mat-card-image [src]="card.imageCategory" (click)="handleViewAction(card)">
+        </mat-card>
+    </div>
+
+    <h1 *ngIf="filteredItems()?.length === 0">Aucune catégorie trouvée!</h1>
+</div>
+
+<mat-toolbar class="footer">
+    <div class="toolbar-content">Tous droits réservés, 2024</div>
+</mat-toolbar>

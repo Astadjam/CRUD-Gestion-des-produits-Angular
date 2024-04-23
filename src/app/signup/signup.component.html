@@ -1,0 +1,47 @@
+<body>
+    <div class="signup-container">
+        <div class="logo">
+            <mat-icon>account_circle</mat-icon>
+        </div>
+        <div style="text-align: center !important;margin-bottom: 5pc;">Shop Store</div>
+        <form [formGroup]="signupForm">
+            <div fxFlex fxLayout="column">
+
+                <mat-form-field appearance="outline" fxFlex color="primary">
+                    <mat-label>Nom</mat-label>
+                    <input matInput formControlName="name" required>
+                    <mat-error *ngIf="signupForm.controls.name.touched && signupForm.controls.name.invalid">
+                        <span *ngIf="signupForm.controls.name.errors.required">Ce champ est obligatoire</span>
+                        <span *ngIf="signupForm.controls.name.errors.pattern">Nom invalide</span>
+                    </mat-error>
+                </mat-form-field>
+
+                <mat-form-field appearance="outline" fxFlex color="primary">
+                    <mat-label>Email</mat-label>
+                    <input matInput formControlName="email" required>
+                    <mat-error *ngIf="signupForm.controls.email.touched && signupForm.controls.email.invalid">
+                        <span *ngIf="signupForm.controls.email.errors.required">Ce champ est obligatoire</span>
+                        <span *ngIf="signupForm.controls.email.errors.pattern">Courriel invalide</span>
+                    </mat-error>
+                </mat-form-field>
+
+                <mat-form-field appearance="outline" fxFlex color="primary">
+                    <mat-label>Mot de passe</mat-label>
+                    <input matInput formControlName="password" type="password" required>
+                    <mat-error *ngIf="signupForm.controls.password.touched && signupForm.controls.password.invalid">
+                        <span *ngIf="signupForm.controls.password.errors.required">Ce champ est obligatoire</span>
+                    </mat-error>
+                </mat-form-field>
+
+                <button mat-raised-button [disabled]="!(signupForm.valid && signupForm.dirty)" color="primary" (click)="handleSubmit()">Créer mon compte</button>
+
+            </div>
+        </form>
+
+        <div class="home-link">
+            <span (click)="onBack()">
+                <span style="color: blue;cursor: pointer;">Retour à l'accueil</span>
+            </span>
+        </div>
+    </div>
+</body>

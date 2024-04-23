@@ -1,0 +1,51 @@
+<mat-toolbar color="primary">
+    <mat-toolbar-row fxLayout="row">
+        <span class="title-center">{{dialogData.action}} une catégorie</span>
+    </mat-toolbar-row>
+</mat-toolbar>
+
+<mat-dialog-content class="mat-typography">
+    <div *ngIf="dialogData.action === 'Créer' || dialogData.action === 'Editer'">
+    <form [formGroup]="categoryForm">
+        <div fxFlex Layout="column">
+            <div fxLayout="row wrap">
+                <mat-form-field appearance="fill" fxFlex color="primary">
+                    <mat-label>Nom</mat-label>
+                    <input matInput formControlName="name" required>
+                    <mat-error *ngIf="categoryForm.controls.name.touched && categoryForm.controls.name.invalid">
+                        <span *ngIf="categoryForm.controls.name.errors.required">Ce champ est obligatoire</span>
+                    </mat-error>
+                </mat-form-field>
+            </div>
+
+            <div *ngIf="dialogData.action === 'Editer'">
+                <img [src]="imageCategory" class="existing-image">
+            </div>
+
+            <div fxLayout="row wrap">
+                <input type="file" (change)="handleImageInput($event)" accept="image/*">
+            </div>
+        </div>
+    </form>
+    </div>
+
+    <div *ngIf="dialogData.action === 'Supprimer'">
+        <h2>Etes-vous sûr de vouloir supprimer cette catégorie ?</h2>
+    </div>
+</mat-dialog-content>
+
+<mat-dialog-actions align="center">
+    <div *ngIf="dialogData.action === 'Créer' || dialogData.action === 'Editer'">
+        <button mat-raised-button color="primary" type="submit" (click)="handleSubmit()" [disabled]="!(categoryForm.valid && categoryForm.dirty)">
+            {{action}}
+        </button>
+        <button mat-raised-button color="primary" mat-dialog-close="">Fermer</button>
+    </div>
+    
+    <div *ngIf="dialogData.action === 'Supprimer'">
+        <button mat-raised-button color="primary" type="submit" (click)="handleSubmit()" >
+            {{action}}
+        </button>
+        <button mat-raised-button color="primary" mat-dialog-close="">Fermer</button>
+    </div>
+</mat-dialog-actions>

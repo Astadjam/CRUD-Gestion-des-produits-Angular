@@ -1,0 +1,47 @@
+<mat-card>
+    <div>
+        <b><span>Liste des utilisateurs</span></b>
+        <button mat-flat-button color="primary" class="float-right" (click)="handleAddAction()">Créer un utilisateur</button>
+    </div>
+</mat-card>
+<br>
+<mat-card>
+    <mat-form-field appearance="fill" style="width: 50%;">
+        <mat-label>Rechercher un utilisateur</mat-label>
+        <input matInput (keyup)="applyFilter($event)">
+    </mat-form-field>
+</mat-card>
+<br>
+<div class="responsive_table">
+    <table mat-table [dataSource]="dataSource">
+        <ng-container matColumnDef="name">
+            <th mat-header-cell *matHeaderCellDef>Nom</th>
+            <td mat-cell *matCellDef="let element">{{element.name}}</td>
+        </ng-container>
+
+        <ng-container matColumnDef="email">
+            <th mat-header-cell *matHeaderCellDef>Email</th>
+            <td mat-cell *matCellDef="let element">{{element.email}}</td>
+        </ng-container>
+
+        <ng-container matColumnDef="role">
+            <th mat-header-cell *matHeaderCellDef>Role</th>
+            <td mat-cell *matCellDef="let element">{{element.role}}</td>
+        </ng-container>
+
+        <ng-container matColumnDef="edit">
+            <th mat-header-cell *matHeaderCellDef>Action</th>
+            <td mat-cell *matCellDef="let element" class="action-link">
+                <button mat-icon-button color="primary" matTooltip="Modifier" (click)="handleEditAction(element)">
+                    <mat-icon>edit</mat-icon>
+                </button>
+
+                <button mat-icon-button color="accent" matTooltip="Supprimer" (click)="handleDeleteAction(element)">
+                    <mat-icon>delete</mat-icon>
+                </button>
+            </td>
+        </ng-container>
+        <tr mat-header-row *matHeaderRowDef="displayedColumns; sticky:true"></tr>
+        <tr mat-row *matRowDef="let row; columns:displayedColumns;"></tr>
+    </table>
+</div>

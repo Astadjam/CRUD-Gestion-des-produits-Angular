@@ -1,0 +1,42 @@
+<mat-toolbar color="primary">
+    Espace Admin
+    <span class="spacer"></span>
+
+    <h2>{{userName}}</h2>
+    <button mat-icon-button matTooltip="Se déconnecter" (click)="logout()">
+        <mat-icon>exit_to_app</mat-icon>
+    </button>
+</mat-toolbar>
+
+<mat-sidenav-container>
+    <mat-sidenav #sidenav="matSidenav" opened="true" mode="side">
+        <img class="avatar mat-elevation-z8" src="../../assets/profile.png">
+        <mat-divider class="custom-divider"></mat-divider>
+        <button mat-button class="menu-button" color="primary" routerLinkActive="active" routerLink="/shopstore/dashboard">
+            <mat-icon>home</mat-icon>
+            <span>Dashboard</span>
+        </button>
+
+        <button mat-button class="menu-button" color="primary" routerLinkActive="active" routerLink="/shopstore/users">
+            <mat-icon>group</mat-icon>
+            <span>Utilisateur</span>
+        </button>
+
+        <button mat-button class="menu-button" color="primary" routerLinkActive="active" routerLink="/shopstore/category">
+            <mat-icon>apartment</mat-icon>
+            <span>Catégorie</span>
+        </button>
+
+        <button mat-button class="menu-button" color="primary" routerLinkActive="active" routerLink="/shopstore/product">
+            <mat-icon>storage</mat-icon>
+            <span>Produit</span>
+        </button>
+
+    </mat-sidenav>
+
+    <mat-sidenav-content style="background: radial-gradient(red, #332042);">
+        <div class="content mat-elevation-z8" style="background: white;">
+            <router-outlet></router-outlet>
+        </div>
+    </mat-sidenav-content>
+</mat-sidenav-container>

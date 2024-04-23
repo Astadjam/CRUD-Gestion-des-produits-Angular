@@ -1,0 +1,19 @@
+<mat-toolbar color="primary">
+    <mat-toolbar-row fxLayout="row">
+        <span>Détails produit</span>
+        <span class="spacer"></span>
+        <button class="mat-dialog-close" mat-icon-button mat-dialog-close>
+            <mat-icon>close</mat-icon>
+        </button>
+    </mat-toolbar-row>
+</mat-toolbar>
+
+<mat-dialog-content class="mat-typography">
+    Nom : {{productDetails.name}}
+    <br>
+    Prix : {{productDetails.price | currency: 'EUR'}}
+    <br>
+    Catégorie : {{productDetails.categoryName}}
+    <br>
+    <img [src]="productDetails.imageProduct" width="200px" height="200px">
+</mat-dialog-content>

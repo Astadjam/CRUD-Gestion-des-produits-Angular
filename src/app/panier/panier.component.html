@@ -1,0 +1,44 @@
+<mat-toolbar color="primary">
+    <mat-toolbar-row fxLayout="row">
+        <span>Mon panier</span>
+        <span class="spacer"></span>
+        <button class="mat-dialog-close" mat-icon-button mat-dialog-close>
+            <mat-icon>close</mat-icon>
+        </button>
+    </mat-toolbar-row>
+</mat-toolbar>
+
+<mat-dialog-content class="mat-typography">
+    <h4 *ngIf="panierProducts.length === 0" class="cartheader ml-4"  >Votre panier est vide.</h4>
+    <h4 *ngIf="panierProducts.length === 1" class="cartheader ml-4"  >Votre panier contient {{panierProducts.length}} article.</h4>
+    <h4 *ngIf="panierProducts.length > 1 " class="cartheader ml-4"  >Votre panier contient {{panierProducts.length}} articles.</h4>
+    <div *ngIf="panierProducts.length !== 0" class="cart-overlay">
+      <div class="cart" style="display: flex;">
+        <div class="cart-content">
+          <!--cart item-->
+          <div class="cart-item" *ngFor="let item of panierProducts">
+            <img src="{{item.imageProduct}}" class="product-img" alt="item">
+            <div>
+              <h4>{{item.name}}</h4>
+              <h4>Montant : {{item.price * item.quantity| currency: 'EUR'}}</h4>
+            </div>
+            <div class="counter mx-auto my-auto">
+              <button mat-icon-button color="primary" (click)="handleIncrement(item)">
+                <mat-icon>add</mat-icon>
+              </button>
+              <p style="margin: auto;"> {{item.quantity}} </p> 
+              <button mat-icon-button color="primary" (click)="handleDecriment(item)">
+                <mat-icon>remove</mat-icon>
+              </button>
+            </div>
+            <span class="remove-item" class="makebold" style="cursor:pointer; color: brown;" (click)="handelRemoveProduct(item)">Retirer</span>
+          </div>
+          <!--End cart item-->
+        </div>
+       <div class="cart-footer">
+          <h3 class="priceDetails">Total à payer</h3>
+          <h3 class="price">Montant :  <span class="cart-price">{{ panierTotalValue| currency: 'EUR'}}</span></h3>
+      </div>
+    </div>
+    </div>
+</mat-dialog-content>
